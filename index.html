@@ -1,298 +1,222 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reyy Marketplace</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reyy Marketplace</title>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0a0f2c, #1e2a78, #0a0f2c);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-  <!-- Firebase (versi compat agar cocok dengan code bergaya namespace) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+/* Background motif digital */
+body::before {
+  content:"";
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -1;
+}
 
-  <style>
-    :root{
-      --brand:#1db954;
-      --brand-dark:#14833b;
-      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
-      --accent:#ff4fd8;
-    }
-    *{box-sizing:border-box}
-    body{
-      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-      background: linear-gradient(to right,var(--bg1),var(--bg2),var(--bg3));
-      color:#fff; text-align:center; padding:28px; overflow-x:hidden;
-      min-height:100vh; position:relative;
-    }
-
-    /* grid digital halus bergerak */
-    .digital-bg{
-      position:fixed; inset:0; z-index:-2;
-      background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: gridMove 25s linear infinite;
-      opacity:.3;
-    }
-    @keyframes gridMove{
-      from{background-position:0 0}
-      to{background-position:1000px 1000px}
-    }
-
-    /* kartu login dgn motif gelombang jepang */
-    .card{
-      background: rgba(0,0,0,.7);
-      padding: 26px;
-      border-radius: 20px;
-      width: 340px; margin:40px auto 20px;
-      border:2px solid rgba(255,255,255,.18);
-      box-shadow: 0 0 22px rgba(255,0,200,.35);
-      position:relative; overflow:hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-60% -60% auto auto;
-      width:220%; height:220%;
-      background:url('https://i.ibb.co/SKbLJ4P/japan-wave.png') no-repeat center/cover;
-      opacity:.14; transform: rotate(15deg);
-      pointer-events:none;
-    }
-    .card h2{ position:relative; z-index:1; margin-top:0 }
-
-    input{
-      width:90%; padding:12px; margin:8px 0;
-      border:none; border-radius:10px; outline:none; font-size:14px;
-      background:rgba(255,255,255,.12); color:#fff;
-      backdrop-filter: blur(2px);
-    }
-    button{
-      width:95%; padding:11px; margin:10px 0;
-      border:none; border-radius:10px; cursor:pointer; font-weight:700;
-      background:var(--brand); color:#fff; transition:.25s transform,.25s background;
-    }
-    button:hover{ background:var(--brand-dark); transform:translateY(-2px) }
-
-    /* dashboard & produk */
-    .products{
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-      gap:16px; margin-top:20px;
-    }
-    .product{
-      background:rgba(255,255,255,.1);
-      padding:14px; border-radius:12px; transition:.25s transform,.25s background;
-    }
-    .product:hover{ transform:translateY(-6px); background:rgba(255,255,255,.18) }
-    .btn-wa{ background:#25D366 !important }
-
-    /* sakura fall */
-    .sakura-container{
-      pointer-events:none; position:fixed; inset:0; z-index:-1;
-    }
-    .petal{
-      position:absolute; top:-40px; width:14px; height:12px; opacity:.9;
-      background: radial-gradient(circle at 30% 30%, #fff 0 25%, #ffc4e8 30% 60%, #ff73c7 61%);
-      border-radius: 60% 40% 100% 0%/60% 40% 100% 0%;
-      filter: drop-shadow(0 0 6px rgba(255,140,220,.35));
-      animation: fall linear infinite, sway ease-in-out infinite;
-      transform-origin: center;
-    }
-    @keyframes fall{
-      to{ transform: translateY(110vh) rotate(360deg) }
-    }
-    @keyframes sway{
-      0%,100%{ margin-left:0 }
-      50%{ margin-left:25px }
-    }
-
-    /* tombol musik */
-    .music-toggle{
-      position:fixed; right:16px; bottom:16px; z-index:5;
-      width:auto; max-width:220px;
-      background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.18);
-    }
-
-    /* judul */
-    h1{ margin:0 0 10px; text-shadow:0 0 10px rgba(255,79,216,.35) }
-    .sub{opacity:.85; margin-top:4px}
-  </style>
+header {
+  font-size: 24px;
+  margin: 20px 0;
+}
+.card {
+  background: rgba(0,0,0,0.6);
+  padding: 25px;
+  border-radius: 15px;
+  width: 320px;
+  margin: 20px auto;
+  box-shadow: 0 0 20px #00f2ff;
+}
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+button {
+  width: 95%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background:#007bff;color:white; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+.product {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00f2ff;
+}
+.product h3 { margin-bottom: 10px; }
+.whatsapp { background:#25D366;color:white; }
+.page { display:none; opacity:0; transition: opacity 0.5s ease; }
+.page.active { display:block; opacity:1; }
+audio { display:none; }
+</style>
 </head>
 <body>
-  <div class="digital-bg"></div>
-  <div class="sakura-container" id="sakura"></div>
+<header>🌸 Reyy Marketplace — Digital Hosting Jepang 🌸</header>
 
-  <h1>🌸 Reyy Marketplace 🌸</h1>
-  <div class="sub">Digital • Hosting • Editing</div>
+<!-- Audio background -->
+<audio id="bg-audio" autoplay loop>
+  <source src="3_03_PM.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- musik (autoplay bisa diblok browser; ada tombol toggle di kanan bawah) -->
-  <audio id="bgm" loop>
-    <source src="https://files.catbox.moe/1m2tqj.mp3" type="audio/mpeg"/>
-  </audio>
-  <button class="music-toggle" id="musicBtn" title="Putar / Jeda Musik">▶️ Nyalakan Musik</button>
+<!-- LOGIN/REGISTER -->
+<div id="auth-card" class="card page active">
+  <h2>Login / Register</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Register</button>
+  <button onclick="loginGoogle()">Login dengan Google</button>
+  <p id="status"></p>
+</div>
 
-  <!-- Kartu Login/Register -->
-  <div id="auth-card" class="card">
-    <h2>Login / Register</h2>
-    <input type="email" id="email" placeholder="Email"/>
-    <input type="password" id="password" placeholder="Password"/>
-    <button onclick="login()">Login</button>
-    <button onclick="register()">Register</button>
-    <button onclick="loginGoogle()">Login dengan Google</button>
-    <p id="status"></p>
-  </div>
+<!-- DASHBOARD -->
+<div id="dashboard" class="page">
+  <h2>Selamat Datang 🎉</h2>
+  <div class="products" id="product-list"></div>
+  <button onclick="logout()">Logout</button>
+</div>
 
-  <!-- Dashboard -->
-  <div id="dashboard" style="display:none;">
-    <h2>Selamat Datang di Reyy Marketplace 🎉</h2>
-    <p>Pilih produk digital dan hosting favoritmu!</p>
-    <div class="products" id="product-list"></div>
-    <button onclick="logout()">Logout</button>
-  </div>
+<script>
+// 🔹 Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyDltD_W1vvEHioWiXZZwVtTqmAXZtXTHq4",
+  authDomain: "reyymarketplace-fe133.firebaseapp.com",
+  projectId: "reyymarketplace-fe133",
+  storageBucket: "reyymarketplace-fe133.appspot.com",
+  messagingSenderId: "407298452232",
+  appId: "1:407298452232:web:0ffdb875e5463649d51abd",
+  measurementId: "G-4T3HQ6PZF3"
+};
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-  <script>
-    /* ================== Firebase ================== */
-    const firebaseConfig = {
-      apiKey: "AIzaSyDltD_W1vvEHioWiXZZwVtTqmAXZtXTHq4",
-      authDomain: "reyymarketplace-fe133.firebaseapp.com",
-      projectId: "reyymarketplace-fe133",
-      storageBucket: "reyymarketplace-fe133.firebasestorage.app",
-      messagingSenderId: "407298452232",
-      appId: "1:407298452232:web:0ffdb875e5463649d51abd",
-      measurementId: "G-4T3HQ6PZF3"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+// 🔹 Produk
+const products = [
+  {name:"Hosting Basic", price:"Rp50.000"},
+  {name:"Hosting Pro", price:"Rp100.000"},
+  {name:"Hosting Premium", price:"Rp150.000"},
+  {name:"Hosting Unlimited", price:"Rp200.000"},
+  {name:"Hosting SSD", price:"Rp250.000"},
+  {name:"Hosting Cloud", price:"Rp300.000"},
+  {name:"Hosting VPS", price:"Rp500.000"},
+  {name:"Hosting Business", price:"Rp600.000"},
+  {name:"Hosting Developer", price:"Rp700.000"},
+  {name:"Hosting Enterprise", price:"Rp1.000.000"},
+  {name:"Edit Foto Basic", price:"Rp30.000"},
+  {name:"Edit Foto Pro", price:"Rp50.000"},
+  {name:"Edit Foto Premium", price:"Rp80.000"},
+  {name:"Edit Foto Wedding", price:"Rp120.000"},
+  {name:"Edit Foto Fashion", price:"Rp150.000"},
+  {name:"Edit Video Basic", price:"Rp70.000"},
+  {name:"Edit Video Pro", price:"Rp120.000"},
+  {name:"Edit Video Premium", price:"Rp200.000"},
+  {name:"Edit Video Cinematic", price:"Rp300.000"},
+  {name:"Edit Video Wedding", price:"Rp500.000"}
+];
 
-    /* ================== Produk ================== */
-    const products = [
-      { name: "Hosting Basic", price: "Rp50.000" },
-      { name: "Hosting Pro", price: "Rp100.000" },
-      { name: "Hosting Premium", price: "Rp150.000" },
-      { name: "Hosting Unlimited", price: "Rp200.000" },
-      { name: "Hosting SSD", price: "Rp250.000" },
-      { name: "Hosting Cloud", price: "Rp300.000" },
-      { name: "Hosting VPS", price: "Rp500.000" },
-      { name: "Hosting Business", price: "Rp600.000" },
-      { name: "Hosting Developer", price: "Rp700.000" },
-      { name: "Hosting Enterprise", price: "Rp1.000.000" },
-      { name: "Edit Foto Basic", price: "Rp30.000" },
-      { name: "Edit Foto Pro", price: "Rp50.000" },
-      { name: "Edit Foto Premium", price: "Rp80.000" },
-      { name: "Edit Foto Wedding", price: "Rp120.000" },
-      { name: "Edit Foto Fashion", price: "Rp150.000" },
-      { name: "Edit Video Basic", price: "Rp70.000" },
-      { name: "Edit Video Pro", price: "Rp120.000" },
-      { name: "Edit Video Premium", price: "Rp200.000" },
-      { name: "Edit Video Cinematic", price: "Rp300.000" },
-      { name: "Edit Video Wedding", price: "Rp500.000" }
-    ];
+// 🔹 Render Produk
+function renderProducts(){
+  const list=document.getElementById("product-list");
+  list.innerHTML="";
+  products.forEach(p=>{
+    const div=document.createElement("div");
+    div.className="product";
+    div.innerHTML=`<h3>${p.name}</h3>
+      <p>Harga: ${p.price}</p>
+      <a href="https://wa.me/6287740979784?text=Halo,%20saya%20ingin%20beli%20${encodeURIComponent(p.name)}%20(${p.price})" target="_blank">
+      <button class="whatsapp">Beli via WhatsApp</button></a>`;
+    list.appendChild(div);
+  });
+}
 
-    function renderProducts(){
-      const list = document.getElementById("product-list");
-      list.innerHTML = "";
-      products.forEach(p=>{
-        const div = document.createElement("div");
-        div.className="product";
-        div.innerHTML = `
-          <h3>${p.name}</h3>
-          <p>Harga: ${p.price}</p>
-          <a href="https://wa.me/6287740979784?text=Halo,%20saya%20ingin%20beli%20${encodeURIComponent(p.name)}%20(${encodeURIComponent(p.price)})" target="_blank" rel="noopener">
-            <button class="btn-wa">Beli via WhatsApp</button>
-          </a>
-        `;
-        list.appendChild(div);
-      });
-    }
+// 🔹 Auth Functions
+function register(){
+  const email=document.getElementById("email").value;
+  const password=document.getElementById("password").value;
+  auth.createUserWithEmailAndPassword(email,password)
+    .then(userCredential=>{
+      document.getElementById("status").innerText="✅ Registrasi sukses: "+userCredential.user.email;
+      showDashboard();
+    })
+    .catch(err=>document.getElementById("status").innerText="❌ "+err.message);
+}
 
-    /* ================== Auth Actions ================== */
-    function register(){
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-      auth.createUserWithEmailAndPassword(email,password)
-        .then(cred=>{
-          document.getElementById("status").innerText = "✅ Registrasi sukses: " + cred.user.email;
-        })
-        .catch(err=>{
-          document.getElementById("status").innerText = "❌ " + err.message;
-        });
-    }
+function login(){
+  const email=document.getElementById("email").value;
+  const password=document.getElementById("password").value;
+  auth.signInWithEmailAndPassword(email,password)
+    .then(userCredential=>{
+      document.getElementById("status").innerText="✅ Login sukses: "+userCredential.user.email;
+      showDashboard();
+    })
+    .catch(err=>document.getElementById("status").innerText="❌ "+err.message);
+}
 
-    function login(){
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-      auth.signInWithEmailAndPassword(email,password)
-        .then(cred=>{
-          document.getElementById("status").innerText = "✅ Login sukses: " + cred.user.email;
-          showDashboard();
-        })
-        .catch(err=>{
-          document.getElementById("status").innerText = "❌ " + err.message;
-        });
-    }
+function loginGoogle(){
+  const provider=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result=>{
+      document.getElementById("status").innerText="✅ Login Google sukses: "+result.user.email;
+      showDashboard();
+    })
+    .catch(err=>document.getElementById("status").innerText="❌ "+err.message);
+}
 
-    function loginGoogle(){
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(result=>{
-          document.getElementById("status").innerText = "✅ Login Google sukses: " + result.user.email;
-          showDashboard();
-        })
-        .catch(err=>{
-          document.getElementById("status").innerText = "❌ " + err.message;
-        });
-    }
+function logout(){
+  auth.signOut().then(()=>showPage("auth-card"));
+}
 
-    function logout(){
-      auth.signOut().then(()=>{
-        document.getElementById("dashboard").style.display="none";
-        document.getElementById("auth-card").style.display="block";
-      });
-    }
+// 🔹 Show Dashboard
+function showDashboard(){
+  showPage("dashboard");
+  renderProducts();
+}
 
-    function showDashboard(){
-      document.getElementById("auth-card").style.display="none";
-      document.getElementById("dashboard").style.display="block";
-      renderProducts();
-    }
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-    /* ================== Musik Toggle ================== */
-    const bgm = document.getElementById('bgm');
-    const musicBtn = document.getElementById('musicBtn');
-    let isPlaying = false;
-
-    function tryPlay(){
-      bgm.play().then(()=>{
-        isPlaying = true;
-        musicBtn.textContent = "⏸️ Jeda Musik";
-      }).catch(()=>{
-        // autoplay diblok – user harus klik tombol
-      });
-    }
-    // coba autoplay halus setelah load
-    window.addEventListener('load', tryPlay);
-    musicBtn.addEventListener('click', ()=>{
-      if(isPlaying){ bgm.pause(); isPlaying=false; musicBtn.textContent="▶️ Nyalakan Musik"; }
-      else { bgm.play(); isPlaying=true; musicBtn.textContent="⏸️ Jeda Musik"; }
-    });
-
-    /* ================== Sakura Generator ================== */
-    const sakura = document.getElementById('sakura');
-    const PETALS = 30; // jumlah kelopak
-    function createPetal(i){
-      const span = document.createElement('span');
-      span.className = 'petal';
-      const startLeft = Math.random()*100; // vw
-      const fallDur  = 8 + Math.random()*7; // 8-15s
-      const swayDur  = 3 + Math.random()*3; // 3-6s
-      const delay    = -Math.random()*12;   // biar menyebar
-      const size     = 10 + Math.random()*10; // 10-20px
-      span.style.left = startLeft + 'vw';
-      span.style.animationDuration = `${fallDur}s, ${swayDur}s`;
-      span.style.animationDelay = `${delay}s, ${delay}s`;
-      span.style.width = size + 'px';
-      span.style.height = (size*0.85) + 'px';
-      sakura.appendChild(span);
-      // recycle saat selesai jatuh
-      setTimeout(()=>{ sakura.removeChild(span); createPetal(i); }, (fallDur*1000));
-    }
-    for(let i=0;i<PETALS;i++){ createPetal(i); }
-  </script>
+// 🔹 Auto login jika sudah login
+auth.onAuthStateChanged(user=>{
+  if(user) showDashboard();
+  else showPage("auth-card");
+});
+</script>
 </body>
 </html>
