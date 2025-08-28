@@ -1,233 +1,265 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reyy Marketplace - Hosting & Cheat FF</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
-  overflow-x: hidden;
-  background: linear-gradient(135deg, #0a0f2c, #1e2a78, #0a0f2c);
-  position: relative;
-}
-
-/* Neon digital animated background */
-body::before {
-  content:"";
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:
-    linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px),
-    url('https://i.imgur.com/k5H6jvC.png'); /* motif hosting digital */
-  background-size: 40px 40px, 40px 40px, 150px 150px;
-  animation: moveGrid 10s linear infinite;
-  opacity:0.3;
-  z-index:-1;
-}
-
-@keyframes moveGrid {
-  0% { background-position: 0 0, 0 0, 0 0; }
-  100% { background-position: 0 200px, 200px 0, 0 0; }
-}
-
-header, h1, h2 {
-  text-align:center;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #00f2ff, 0 0 10px #00f2ff; }
-  100% { text-shadow: 0 0 20px #00f2ff, 0 0 30px #00f2ff; }
-}
-
-header {
-  padding:15px;
-  font-size:22px;
-  background: rgba(0,0,0,0.7);
-  border-bottom: 2px solid #00f2ff;
-}
-
-nav {
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  margin:20px 0;
-}
-
-nav button {
-  background: rgba(0,0,0,0.5);
-  border: 1px solid #00f2ff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor:pointer;
-  font-weight:bold;
-  transition: all 0.4s;
-  text-shadow: 0 0 5px #00f2ff;
-}
-
-nav button.active {
-  background: #00f2ff;
-  color: black;
-  transform: scale(1.1);
-  text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff;
-}
-
-nav button:hover {
-  background: #007bff;
-  color:white;
-  transform: scale(1.05);
-}
-
-.page {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-  transition: all 0.6s ease;
-}
-
-.page.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.products {
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap:20px;
-  margin-bottom: 30px;
-  padding: 0 20px;
-}
-
-.product-card {
-  position:relative;
-  background: rgba(0,0,0,0.7);
-  padding:15px;
-  border-radius:15px;
-  text-align:center;
-  box-shadow: 0 0 15px #00f2ff;
-  transition: transform 0.4s, box-shadow 0.4s;
-  overflow:hidden;
-}
-
-.product-card::before {
-  content:"🖥️";
-  position:absolute;
-  top:-10px; right:-10px;
-  font-size:50px;
-  opacity:0.1;
-  transform: rotate(-15deg);
-}
-
-.product-card:hover {
-  transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 0 0 30px #00f2ff, 0 0 40px #00f2ff inset;
-}
-
-.product-card h3 {
-  margin:10px 0;
-}
-
-button.whatsapp {
-  background:#25D366;
-  border:none;
-  padding:10px 15px;
-  border-radius:10px;
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-  text-shadow: 0 0 5px #25D366;
-  transition: all 0.4s;
-  animation: glowGreen 2s infinite alternate;
-}
-
-button.whatsapp:hover { background:#1eb95e; }
-
-@keyframes glowGreen {
-  0% { box-shadow: 0 0 5px #25D366, 0 0 10px #25D366 inset; }
-  100% { box-shadow: 0 0 20px #25D366, 0 0 30px #25D366 inset; }
-}
-
-audio { display:none; }
-
-footer {
-  text-align:center;
-  padding:15px;
-  background: rgba(0,0,0,0.7);
-  border-top: 2px solid #00f2ff;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReyyDev - Web Jualan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      font-size: 1.5rem;
+      color: #00d4ff;
+      letter-spacing: 2px;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00d4ff; }
+      to { text-shadow: 0 0 20px #00ffcc; }
+    }
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.3s;
+    }
+    nav a:hover {
+      color: #00d4ff;
+      transform: scale(1.1);
+    }
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: url('https://www.transparenttextures.com/patterns/asanoha.png');
+      background-size: cover;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      background: #00d4ff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background: #00aacc;
+      transform: translateY(-3px);
+    }
+    .search-box {
+      text-align: center;
+      margin: 2rem;
+    }
+    .search-box input {
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      border: none;
+      width: 60%;
+      max-width: 400px;
+    }
+    section {
+      padding: 3rem 2rem;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #00d4ff;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .price {
+      color: #00ffcc;
+      margin: 0.5rem 0;
+      font-weight: bold;
+    }
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>ReyyDev</h1>
+    <nav>
+      <a href="#products">Produk</a>
+      <a href="#hosting">Hosting</a>
+      <a href="#topup">Top Up Game</a>
+      <a href="#domain">Domain</a>
+      <a href="https://wa.me/6287740979784" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/username" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@username" target="_blank">TikTok</a>
+    </nav>
+  </header>
 
-<header>🌐 Reyy Marketplace — Hosting & Cheat FF 🌐<br>🌐 <a href="https://reyymarketplace.my.id" style="color:#00f2ff;text-decoration:none;">reyymarketplace.my.id</a></header>
+  <section class="hero">
+    <h2>Selamat Datang di ReyyDev</h2>
+    <p>Tempat jualan digital dengan sentuhan motif Jepang & tema digital</p>
+    <a class="btn" href="#products">Lihat Produk</a>
+  </section>
 
-<nav>
-  <button id="btnWeb" class="active" onclick="showPage('webPage')">Jasa Website</button>
-  <button id="btnCheat" onclick="showPage('cheatPage')">Cheat Free Fire</button>
-</nav>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Cari produk...">
+  </div>
 
-<div id="webPage" class="page active">
-  <h2>💻 Jasa Bikin Website</h2>
-  <div id="webProducts" class="products"></div>
-</div>
+  <!-- Produk -->
+  <section id="products">
+    <h2>Produk Kami</h2>
+    <div class="grid" id="product-list">
+      <div class="card">
+        <h3>Jasa Edit Foto</h3>
+        <p class="price">Rp50.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Jasa%20Edit%20Foto" target="_blank">Pesan</a>
+      </div>
+      <div class="card">
+        <h3>Jasa Edit Video</h3>
+        <p class="price">Rp100.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Jasa%20Edit%20Video" target="_blank">Pesan</a>
+      </div>
+      <div class="card">
+        <h3>Template Digital</h3>
+        <p class="price">Rp30.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Template%20Digital" target="_blank">Pesan</a>
+      </div>
+    </div>
+  </section>
 
-<div id="cheatPage" class="page">
-  <h2>🎮 Cheat Free Fire</h2>
-  <div id="cheatProducts" class="products"></div>
-</div>
+  <!-- Hosting -->
+  <section id="hosting">
+    <h2>🔥 ReyyHosting</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Basic</h3>
+        <p>Cocok untuk website pribadi</p>
+        <p class="price">Rp15.000/bulan</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Basic" target="_blank">Pesan</a>
+      </div>
+      <div class="card">
+        <h3>Pro</h3>
+        <p>Untuk UMKM & bisnis kecil</p>
+        <p class="price">Rp35.000/bulan</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Pro" target="_blank">Pesan</a>
+      </div>
+      <div class="card">
+        <h3>Premium</h3>
+        <p>Performa tinggi untuk website besar</p>
+        <p class="price">Rp75.000/bulan</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Premium" target="_blank">Pesan</a>
+      </div>
+    </div>
+  </section>
 
-<audio id="bgMusic" src="3_03_PM.mp3" autoplay loop></audio>
+  <!-- Top Up Game -->
+  <section id="topup">
+    <h2>🎮 Top Up Game</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Free Fire</h3>
+        <p class="price">Mulai Rp10.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20Free%20Fire" target="_blank">Top Up</a>
+      </div>
+      <div class="card">
+        <h3>Mobile Legends</h3>
+        <p class="price">Mulai Rp15.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20Mobile%20Legends" target="_blank">Top Up</a>
+      </div>
+      <div class="card">
+        <h3>PUBG Mobile</h3>
+        <p class="price">Mulai Rp20.000</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20PUBG%20Mobile" target="_blank">Top Up</a>
+      </div>
+    </div>
+  </section>
 
-<footer>© 2025 Reyy Marketplace | 🌐 <a href="https://reyymarketplace.my.id" style="color:#00f2ff;text-decoration:none;">reyymarketplace.my.id</a></footer>
+  <!-- Domain -->
+  <section id="domain">
+    <h2>🌐 Domain Murah</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>.my.id</h3>
+        <p class="price">Rp15.000/tahun</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Domain%20.my.id" target="_blank">Pesan</a>
+      </div>
+      <div class="card">
+        <h3>.biz.id</h3>
+        <p class="price">Rp25.000/tahun</p>
+        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Domain%20.biz.id" target="_blank">Pesan</a>
+      </div>
+    </div>
+  </section>
 
-<script>
-function showPage(pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-  
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  if(pageId==='webPage') document.getElementById('btnWeb').classList.add('active');
-  else document.getElementById('btnCheat').classList.add('active');
-}
+  <footer>
+    <p>&copy; 2025 ReyyDev. All rights reserved.</p>
+  </footer>
 
-// Produk Website
-const webProductsData = [
-  "Jasa Website Toko Online","Jasa Website Company Profile","Jasa Landing Page",
-  "Jasa Website Personal","Jasa Website Blog","Jasa Website Sekolah",
-  "Jasa Website Portofolio","Jasa Website Event","Jasa Website UMKM","Jasa Website Startup"
-];
-const cheatProductsData = [
-  "Cheat FF Auto Headshot","Cheat FF Wallhack","Cheat FF Aimbot","Cheat FF Speed Hack",
-  "Cheat FF Unlimited Health","Cheat FF No Recoil","Cheat FF Antiban",
-  "Cheat FF Diamond Hack","Cheat FF Loot ESP","Cheat FF Skin Unlock"
-];
+  <script>
+    const searchInput = document.getElementById('search');
+    const productList = document.getElementById('product-list');
+    const products = productList.getElementsByClassName('card');
 
-const webContainer = document.getElementById('webProducts');
-webProductsData.forEach(p=>{
-  const div = document.createElement('div');
-  div.className='product-card';
-  div.innerHTML=`<h3>${p}</h3>
-    <a href="https://wa.me/6287740979784?text=Halo,%20saya%20ingin%20membeli%20${encodeURIComponent(p)}" target="_blank">
-      <button class="whatsapp">Chat untuk beli</button>
-    </a>`;
-  webContainer.appendChild(div);
-});
-
-const cheatContainer = document.getElementById('cheatProducts');
-cheatProductsData.forEach(p=>{
-  const div = document.createElement('div');
-  div.className='product-card';
-  div.innerHTML=`<h3>${p}</h3>
-    <a href="https://wa.me/6287740979784?text=Halo,%20saya%20ingin%20membeli%20${encodeURIComponent(p)}" target="_blank">
-      <button class="whatsapp">Chat untuk beli</button>
-    </a>`;
-  cheatContainer.appendChild(div);
-});
-</script>
+    searchInput.addEventListener('keyup', function() {
+      const filter = searchInput.value.toLowerCase();
+      for (let i = 0; i < products.length; i++) {
+        let title = products[i].getElementsByTagName('h3')[0];
+        if (title.innerHTML.toLowerCase().indexOf(filter) > -1) {
+          products[i].style.display = "";
+        } else {
+          products[i].style.display = "none";
+        }
+      }
+    });
+  </script>
 </body>
 </html>
