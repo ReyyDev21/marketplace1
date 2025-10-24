@@ -1,265 +1,297 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReyyDev - Web Jualan</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
-      color: #fff;
-      scroll-behavior: smooth;
-    }
-    header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
-    }
-    header h1 {
-      font-size: 1.5rem;
-      color: #00d4ff;
-      letter-spacing: 2px;
-      animation: glow 2s infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00d4ff; }
-      to { text-shadow: 0 0 20px #00ffcc; }
-    }
-    nav a {
-      margin-left: 1rem;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: color 0.3s, transform 0.3s;
-    }
-    nav a:hover {
-      color: #00d4ff;
-      transform: scale(1.1);
-    }
-    .hero {
-      text-align: center;
-      padding: 5rem 2rem;
-      background: url('https://www.transparenttextures.com/patterns/asanoha.png');
-      background-size: cover;
-      animation: fadeIn 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.7rem 1.5rem;
-      background: #00d4ff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 25px;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .btn:hover {
-      background: #00aacc;
-      transform: translateY(-3px);
-    }
-    .search-box {
-      text-align: center;
-      margin: 2rem;
-    }
-    .search-box input {
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
-      border: none;
-      width: 60%;
-      max-width: 400px;
-    }
-    section {
-      padding: 3rem 2rem;
-    }
-    section h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #00d4ff;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1rem;
-      border-radius: 15px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-    .card h3 {
-      margin-bottom: 0.5rem;
-    }
-    .price {
-      color: #00ffcc;
-      margin: 0.5rem 0;
-      font-weight: bold;
-    }
-    footer {
-      background: #000;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RyyZyrex Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron', sans-serif; }
+body { background:#0f0f1f; overflow-x:hidden; }
+.bg-animation {
+  position: fixed; top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(270deg, #1e1e2f, #4b0082, #00ffff, #ff00ff);
+  background-size: 800% 800%;
+  animation: gradientBG 25s ease infinite;
+  z-index:-1;
+}
+@keyframes gradientBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Login/Register */
+.auth-container {
+  width:400px; padding:2rem;
+  background: rgba(0,0,0,0.75);
+  border-radius:20px; text-align:center;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  box-shadow:0 0 50px #00ffff;
+}
+.auth-container h1 { margin-bottom:1.5rem; color:#00ffff; text-shadow:0 0 15px #00ffff; }
+.auth-container input {
+  width:85%; padding:0.8rem; margin:0.5rem 0;
+  border:none; border-radius:12px; outline:none;
+  background: rgba(255,255,255,0.05); color:#fff;
+}
+.auth-container input::placeholder { color: #ccc; }
+.auth-container button {
+  padding:0.8rem 2rem; border:none; border-radius:12px;
+  background:#00ffff; color:#000; cursor:pointer; transition:0.3s;
+  box-shadow:0 0 15px #00ffff;
+  margin-top:0.5rem;
+}
+.auth-container button:hover { background:#ff00ff; color:#fff; box-shadow:0 0 25px #ff00ff; }
+.switch-btn { background:none; color:#00ffff; text-decoration:underline; cursor:pointer; margin-top:10px; }
+.switch-btn:hover { color:#ff00ff; }
+.error-msg { color:#ff4d4d; margin-top:0.5rem; }
+
+/* Dashboard */
+.dashboard-container { padding:2rem; color:#fff; }
+.dashboard-container header { display:flex; justify-content:space-between; align-items:center; }
+.dashboard-container header h2 { text-shadow:0 0 10px #00ffff; }
+.dashboard-container header button {
+  padding:0.5rem 1rem; border:none; border-radius:10px;
+  background:#ff00ff; color:#fff; cursor:pointer; transition:0.3s;
+  box-shadow:0 0 10px #ff00ff;
+}
+.dashboard-container header button:hover { background:#00ffff; box-shadow:0 0 20px #00ffff; }
+
+.actions { margin-top:2rem; }
+.actions input, .actions select {
+  padding:0.6rem; border-radius:10px; border:none;
+  margin-right:0.5rem; background: rgba(255,255,255,0.05); color:#fff;
+}
+.actions input::placeholder { color: #ccc; }
+.actions button {
+  padding:0.6rem 1.5rem; margin-right:1rem; border:none; border-radius:12px;
+  background:#00ffff; color:#000; cursor:pointer; transition:0.3s; box-shadow:0 0 10px #00ffff;
+}
+.actions button:hover { background:#ff00ff; color:#fff; box-shadow:0 0 20px #ff00ff; }
+
+.panel-list { margin-top:2rem; }
+table { width:100%; border-collapse: collapse; margin-top:1rem; }
+th, td { padding:0.8rem; text-align:left; border-bottom:1px solid rgba(0,255,255,0.2); }
+th { background: rgba(0,255,255,0.1); text-shadow:0 0 5px #00ffff; }
+tr:hover { background: rgba(0,255,255,0.1); }
+
+.bar-container { background: rgba(255,255,255,0.05); border-radius:8px; height:12px; width:100%; margin-top:5px; overflow:hidden; }
+.bar { height:100%; border-radius:8px; transition: width 0.5s ease; }
+.status-online { color:#0f0; text-shadow:0 0 5px #0f0; }
+.status-offline { color:#f00; text-shadow:0 0 5px #f00; }
+.status-suspended { color:#ffa500; text-shadow:0 0 5px #ffa500; }
+.hidden { display:none; }
+</style>
 </head>
 <body>
+<div class="bg-animation"></div>
+
+<!-- Auth Container -->
+<div class="auth-container" id="authContainer">
+  <h1 id="authTitle">Login - RyyZyrex Panel</h1>
+  <form id="authForm">
+    <input type="text" placeholder="Username" id="username" required>
+    <input type="password" placeholder="Password" id="password" required>
+    <button type="submit" id="authButton">Login</button>
+  </form>
+  <p class="error-msg" id="errorMsg"></p>
+  <button class="switch-btn" id="switchAuth">Belum punya akun? Register</button>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard-container hidden">
   <header>
-    <h1>ReyyDev</h1>
-    <nav>
-      <a href="#products">Produk</a>
-      <a href="#hosting">Hosting</a>
-      <a href="#topup">Top Up Game</a>
-      <a href="#domain">Domain</a>
-      <a href="https://wa.me/6287740979784" target="_blank">WhatsApp</a>
-      <a href="https://instagram.com/username" target="_blank">Instagram</a>
-      <a href="https://tiktok.com/@username" target="_blank">TikTok</a>
-    </nav>
+    <h2>Selamat Datang, <span id="userName"></span></h2>
+    <button id="logoutBtn">Logout</button>
   </header>
 
-  <section class="hero">
-    <h2>Selamat Datang di ReyyDev</h2>
-    <p>Tempat jualan digital dengan sentuhan motif Jepang & tema digital</p>
-    <a class="btn" href="#products">Lihat Produk</a>
+  <section class="actions">
+    <h3>Buat Panel Pterodactyl</h3>
+    <input type="text" id="panelName" placeholder="Nama Panel" />
+    <select id="panelType">
+      <option value="1">Game Server</option>
+      <option value="2">Bot Server</option>
+    </select>
+    <button id="createPanel">Buat Panel</button>
   </section>
 
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Cari produk...">
-  </div>
-
-  <!-- Produk -->
-  <section id="products">
-    <h2>Produk Kami</h2>
-    <div class="grid" id="product-list">
-      <div class="card">
-        <h3>Jasa Edit Foto</h3>
-        <p class="price">Rp50.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Jasa%20Edit%20Foto" target="_blank">Pesan</a>
-      </div>
-      <div class="card">
-        <h3>Jasa Edit Video</h3>
-        <p class="price">Rp100.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Jasa%20Edit%20Video" target="_blank">Pesan</a>
-      </div>
-      <div class="card">
-        <h3>Template Digital</h3>
-        <p class="price">Rp30.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Template%20Digital" target="_blank">Pesan</a>
-      </div>
-    </div>
+  <section class="panel-list">
+    <h3>Daftar Panel Real-Time</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nama Panel</th>
+          <th>Tipe</th>
+          <th>Status</th>
+          <th>CPU</th>
+          <th>RAM</th>
+          <th>Disk</th>
+        </tr>
+      </thead>
+      <tbody id="panelList"></tbody>
+    </table>
   </section>
+</div>
 
-  <!-- Hosting -->
-  <section id="hosting">
-    <h2>🔥 ReyyHosting</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Basic</h3>
-        <p>Cocok untuk website pribadi</p>
-        <p class="price">Rp15.000/bulan</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Basic" target="_blank">Pesan</a>
-      </div>
-      <div class="card">
-        <h3>Pro</h3>
-        <p>Untuk UMKM & bisnis kecil</p>
-        <p class="price">Rp35.000/bulan</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Pro" target="_blank">Pesan</a>
-      </div>
-      <div class="card">
-        <h3>Premium</h3>
-        <p>Performa tinggi untuk website besar</p>
-        <p class="price">Rp75.000/bulan</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Hosting%20Premium" target="_blank">Pesan</a>
-      </div>
-    </div>
-  </section>
+<script>
+const authContainer = document.getElementById('authContainer');
+const authTitle = document.getElementById('authTitle');
+const authForm = document.getElementById('authForm');
+const authButton = document.getElementById('authButton');
+const switchAuth = document.getElementById('switchAuth');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const errorMsg = document.getElementById('errorMsg');
 
-  <!-- Top Up Game -->
-  <section id="topup">
-    <h2>🎮 Top Up Game</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Free Fire</h3>
-        <p class="price">Mulai Rp10.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20Free%20Fire" target="_blank">Top Up</a>
-      </div>
-      <div class="card">
-        <h3>Mobile Legends</h3>
-        <p class="price">Mulai Rp15.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20Mobile%20Legends" target="_blank">Top Up</a>
-      </div>
-      <div class="card">
-        <h3>PUBG Mobile</h3>
-        <p class="price">Mulai Rp20.000</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Top%20Up%20PUBG%20Mobile" target="_blank">Top Up</a>
-      </div>
-    </div>
-  </section>
+const dashboard = document.querySelector('.dashboard-container');
+const userNameDisplay = document.getElementById('userName');
+const logoutBtn = document.getElementById('logoutBtn');
+const panelList = document.getElementById('panelList');
 
-  <!-- Domain -->
-  <section id="domain">
-    <h2>🌐 Domain Murah</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>.my.id</h3>
-        <p class="price">Rp15.000/tahun</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Domain%20.my.id" target="_blank">Pesan</a>
-      </div>
-      <div class="card">
-        <h3>.biz.id</h3>
-        <p class="price">Rp25.000/tahun</p>
-        <a class="btn" href="https://wa.me/6287740979784?text=Pesan%20Domain%20.biz.id" target="_blank">Pesan</a>
-      </div>
-    </div>
-  </section>
+const PTERO_DOMAIN = "https://reyydndm.panelwebsite.biz.id";
+const PTLA_TOKEN = "ptla_4P6EiRJLHGK5YUYXwWWYPhJAh2ycFI2FaoduySWyHcd";
+const PTLC_TOKEN = "ptlc_83OVR00T1I1kFNWqrHIQAIvHJf2VEhqrqJyApKqdyDb";
+const TELEGRAM_TOKEN = "8029647306:AAGbkCvu8FohV_oxVjQAqCPpP4XNIGfvFc4";
+const TELEGRAM_CHAT_ID = "7578512962";
 
-  <footer>
-    <p>&copy; 2025 ReyyDev. All rights reserved.</p>
-  </footer>
+// Users object (akun default)
+let users = {
+  "admin":"admin",
+  "reyy":"reyy123"
+};
 
-  <script>
-    const searchInput = document.getElementById('search');
-    const productList = document.getElementById('product-list');
-    const products = productList.getElementsByClassName('card');
+let isLogin = true;
 
-    searchInput.addEventListener('keyup', function() {
-      const filter = searchInput.value.toLowerCase();
-      for (let i = 0; i < products.length; i++) {
-        let title = products[i].getElementsByTagName('h3')[0];
-        if (title.innerHTML.toLowerCase().indexOf(filter) > -1) {
-          products[i].style.display = "";
-        } else {
-          products[i].style.display = "none";
-        }
-      }
-    });
-  </script>
+// Switch login/register
+switchAuth.addEventListener('click', ()=>{
+  isLogin = !isLogin;
+  authTitle.textContent = isLogin ? "Login - RyyZyrex Panel" : "Register - RyyZyrex Panel";
+  authButton.textContent = isLogin ? "Login" : "Register";
+  switchAuth.textContent = isLogin ? "Belum punya akun? Register" : "Sudah punya akun? Login";
+  errorMsg.textContent="";
+});
+
+// Auth submit
+authForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+  if(isLogin){
+    if(users[username] && users[username]===password){
+      authContainer.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      userNameDisplay.textContent=username;
+      loadPanels();
+      setInterval(loadPanels,10000);
+    } else errorMsg.textContent="Username atau password salah!";
+  } else {
+    if(users[username]){
+      errorMsg.textContent="Username sudah ada!";
+    } else {
+      users[username] = password;
+      alert(`Akun ${username} berhasil dibuat!`);
+      isLogin = true;
+      authContainer.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      userNameDisplay.textContent=username;
+      loadPanels();
+      setInterval(loadPanels,10000);
+    }
+  }
+});
+
+// Logout
+logoutBtn.addEventListener('click', ()=>{
+  dashboard.classList.add('hidden');
+  authContainer.classList.remove('hidden');
+  usernameInput.value=""; passwordInput.value="";
+});
+
+// Create panel
+document.getElementById('createPanel').addEventListener('click', createPanel);
+
+function createPanel() {
+  const panelName = document.getElementById('panelName').value.trim();
+  const panelType = document.getElementById('panelType').value;
+
+  if(!panelName){ alert("Masukkan nama panel!"); return; }
+
+  fetch(`${PTERO_DOMAIN}/api/application/servers`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${PTLA_TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pterodactyl.v1+json'
+    },
+    body: JSON.stringify({
+      name: panelName,
+      user: 1,
+      egg: parseInt(panelType),
+      docker_image: "ghcr.io/pterodactyl/yournodeimage:latest",
+      memory: 1024,
+      swap: 0,
+      disk: 2048,
+      cpu: 1,
+      startup: "",
+      environment: {}
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.attributes){
+      alert(`Panel "${panelName}" berhasil dibuat!`);
+      loadPanels();
+
+      // Telegram notification
+      const message = `Panel baru berhasil dibuat: ${panelName} (Type: ${panelType})`;
+      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id: TELEGRAM_CHAT_ID, text: message})
+      }).then(()=>console.log("Telegram notif sent"))
+        .catch(err=>console.error("Telegram notif failed", err));
+
+    } else alert("Gagal membuat panel: "+JSON.stringify(data));
+  }).catch(err=>{ console.error(err); alert("Error membuat panel"); });
+}
+
+// Load panels
+function loadPanels(){
+  fetch(`${PTERO_DOMAIN}/api/application/servers`, {
+    method:'GET',
+    headers:{'Authorization':`Bearer ${PTLC_TOKEN}`,'Accept':'application/vnd.pterodactyl.v1+json'}
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    panelList.innerHTML="";
+    if(data.data){
+      data.data.forEach(server=>{
+        const s = server.attributes;
+        const row = document.createElement('tr');
+        let statusText = s.is_suspended ? "Suspended" : s.relationships.node.attributes.public ? "Online":"Offline";
+        let statusClass = s.is_suspended?"status-suspended":(s.relationships.node.attributes.public?"status-online":"status-offline");
+        row.innerHTML=`
+          <td>${s.name}</td>
+          <td>${s.egg.name}</td>
+          <td class="${statusClass}">${statusText}</td>
+          <td>
+            <div class="bar-container"><div class="bar" style="width:${s.resources? s.resources.cpu_absolute:0}%;background:#0ff"></div></div>
+          </td>
+          <td>
+            <div class="bar-container"><div class="bar" style="width:${s.resources? s.resources.memory_bytes/1024/1024:0}%;background:#0f0"></div></div>
+          </td>
+          <td>
+            <div class="bar-container"><div class="bar" style="width:${s.resources? s.resources.disk_bytes/1024/1024:0}%;background:#ff0"></div></div>
+          </td>
+        `;
+        panelList.appendChild(row);
+      });
+    }
+  }).catch(err=>{ console.error(err); });
+}
+</script>
 </body>
 </html>
